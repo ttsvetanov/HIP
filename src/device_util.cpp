@@ -1139,8 +1139,7 @@ __device__ float __hip_precise_powf(float base, float exponent) {
 }
 
 __device__ void __hip_precise_sincosf(float x, float *s, float *c) {
-  // FIXME
-  //hc::precise_math::sincosf(x, s, c);
+  hc::precise_math::sincosf(x, s, c);
 }
 
 __device__ float __hip_precise_sinf(float x) {
