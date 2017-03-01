@@ -148,7 +148,9 @@ __device__ float fmodf(float x, float y)
 }
 __device__ float frexpf(float x, int *nptr)
 {
-    return hc::precise_math::frexpf(x, nptr);
+    // FIXME
+    //return hc::precise_math::frexpf(x, nptr);
+    return 0.0f;
 }
 __device__ float hypotf(float x, float y)
 {
@@ -188,8 +190,10 @@ __device__ float ldexpf(float x, int exp)
 }
 __device__ float lgammaf(float x)
 {
-    int sign;
-    return hc::precise_math::lgammaf(x, &sign);
+    // FIXME
+    //int sign;
+    //return hc::precise_math::lgammaf(x, &sign);
+    return 0.0f;
 }
 __device__ long long int llrintf(float x)
 {
@@ -202,7 +206,8 @@ __device__ long long int llroundf(float x)
     int y = hc::precise_math::roundf(x);
     long long int z = y;
     return z;
-}__device__ float log10f(float x)
+}
+__device__ float log10f(float x)
 {
     return hc::precise_math::log10f(x);
 }
@@ -235,7 +240,9 @@ __device__ long int lroundf(float x)
 }
 __device__ float modff(float x, float *iptr)
 {
-    return hc::precise_math::modff(x, iptr);
+    // FIXME
+    //return hc::precise_math::modff(x, iptr);
+     return 0.0f;
 }
 __device__ float nanf(const char* tagp)
 {
@@ -292,7 +299,9 @@ __device__ float remainderf(float x, float y)
 }
 __device__ float remquof(float x, float y, int *quo)
 {
-    return hc::precise_math::remquof(x, y, quo);
+    // FIXME
+    //return hc::precise_math::remquof(x, y, quo);
+    return 0.0f;
 }
 __device__ float rhypotf(float x, float y)
 {
@@ -529,7 +538,9 @@ __device__ double fmod(double x, double y)
 }
 __device__ double frexp(double x, int *y)
 {
-    return hc::precise_math::frexp(x, y);
+    // FIXME
+    //return hc::precise_math::frexp(x, y);
+    return 0.0;
 }
 __device__ double hypot(double x, double y)
 {
@@ -569,8 +580,10 @@ __device__ double ldexp(double x, int exp)
 }
 __device__ double lgamma(double x)
 {
-    int sign;
-    return hc::precise_math::lgamma(x, &sign);
+    // FIXME
+    //int sign;
+    //return hc::precise_math::lgamma(x, &sign);
+    return 0.0;
 }
 __device__ long long int llrint(double x)
 {
@@ -614,7 +627,9 @@ __device__ long int lround(double x)
 }
 __device__ double modf(double x, double *iptr)
 {
-    return hc::precise_math::modf(x, iptr);
+    // FIXME
+    //return hc::precise_math::modf(x, iptr);
+    return 0.0;
 }
 __device__ double nan(const char *tagp)
 {
@@ -669,7 +684,9 @@ __device__ double remainder(double x, double y)
 }
 __device__ double remquo(double x, double y, int *quo)
 {
-    return hc::precise_math::remquo(x, y, quo);
+    // FIXME
+    //return hc::precise_math::remquo(x, y, quo);
+    return 0.0;
 }
 __device__ double rhypot(double x, double y)
 {

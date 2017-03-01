@@ -32,8 +32,8 @@ THE SOFTWARE.
 #define SIZE 1024*4
 
 #ifdef __HIP_PLATFORM_HCC__
-__attribute__((address_space(1))) int globalIn[NUM];
-__attribute__((address_space(1))) int globalOut[NUM];
+__device int globalIn[NUM];
+__device int globalOut[NUM];
 #endif
 
 #ifdef __HIP_PLATFORM_NVCC__
