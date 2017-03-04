@@ -34,8 +34,8 @@ THE SOFTWARE.
  This is the best place to put them because the device
  global variables need to be initialized at the start.
 */
-__device char gpuHeap[SIZE_OF_HEAP];
-__device uint32_t gpuFlags[NUM_PAGES];
+__device__ char gpuHeap[SIZE_OF_HEAP];
+__device__ uint32_t gpuFlags[NUM_PAGES];
 
 __device__ void *__hip_hc_malloc(size_t size)
 {

@@ -31,15 +31,8 @@ THE SOFTWARE.
 #define NUM 1024
 #define SIZE 1024*4
 
-#ifdef __HIP_PLATFORM_HCC__
-__device int globalIn[NUM];
-__device int globalOut[NUM];
-#endif
-
-#ifdef __HIP_PLATFORM_NVCC__
 __device__ int globalIn[NUM];
 __device__ int globalOut[NUM];
-#endif
 
 __global__ void Assign(hipLaunchParm lp, int* Out)
 {

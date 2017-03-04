@@ -47,7 +47,7 @@ THE SOFTWARE.
  */
 // _restrict is supported by the compiler
 #define __shared__     tile_static
-#define __constant__   __device
+#define __constant__   __attribute__((hc))
 
 #else
 // Non-HCC compiler
