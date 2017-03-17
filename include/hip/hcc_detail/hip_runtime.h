@@ -226,6 +226,8 @@ __device__ int __all(  int input);
 __device__ int __any( int input);
 __device__  unsigned long long int __ballot( int input);
 
+#if __HIP_ARCH_GFX701__ == 0
+
 // warp shuffle functions
 #ifdef __cplusplus
 __device__ int __shfl(int input, int lane, int width=warpSize);
@@ -245,6 +247,18 @@ __device__ float __shfl(float input, int lane, int width);
 __device__ float __shfl_up(float input, unsigned int lane_delta, int width);
 __device__ float __shfl_down(float input, unsigned int lane_delta, int width);
 __device__ float __shfl_xor(float input, int lane_mask, int width);
+#endif
+
+__device__ unsigned __hip_ds_bpermute(int index, unsigned src);
+__device__ float __hip_ds_bpermutef(int index, float src);
+__device__ unsigned __hip_ds_permute(int index, unsigned src);
+__device__ float __hip_ds_permutef(int index, float src);
+
+__device__ unsigned __hip_ds_swizzle(unsigned int src, int pattern);
+__device__ float __hip_ds_swizzlef(float src, int pattern);
+
+__device__ int __hip_move_dpp(int src, int dpp_ctrl, int row_mask, int bank_mask, bool bound_ctrl);
+
 #endif
 
 __host__ __device__ int min(int arg1, int arg2);
@@ -321,16 +335,6 @@ __device__ static inline void __threadfence(void) {
 //__device__ void  __threadfence_system(void) __attribute__((deprecated("Provided with workaround configuration, see hip_kernel_language.md for details")));
 __device__ void  __threadfence_system(void) ;
 
-__device__ unsigned __hip_ds_bpermute(int index, unsigned src);
-__device__ float __hip_ds_bpermutef(int index, float src);
-__device__ unsigned __hip_ds_permute(int index, unsigned src);
-__device__ float __hip_ds_permutef(int index, float src);
-
-__device__ unsigned __hip_ds_swizzle(unsigned int src, int pattern);
-__device__ float __hip_ds_swizzlef(float src, int pattern);
-
-__device__ int __hip_move_dpp(int src, int dpp_ctrl, int row_mask, int bank_mask, bool bound_ctrl);
-
 // doxygen end Fence Fence
 /**
  * @}
@@ -353,7 +357,7 @@ __device__ int __hip_move_dpp(int src, int dpp_ctrl, int row_mask, int bank_mask
 #define hipGridDim_y   (hc_get_num_groups(1))
 #define hipGridDim_z   (hc_get_num_groups(2))
 
-extern "C" __device__ void* __hip_hc_memcpy(void* dst, void* src, size_t size);
+extern "C" __device__ void* __hip_hc_memcpy(void* dst, const void* src, size_t size);
 extern "C" __device__ void* __hip_hc_memset(void* ptr, uint8_t val, size_t size);
 extern "C" __device__ void* __hip_hc_malloc(size_t);
 extern "C" __device__ void* __hip_hc_free(void *ptr);
@@ -368,14 +372,15 @@ static inline __device__ void* free(void *ptr)
     return __hip_hc_free(ptr);
 }
 
-static inline __device__ void* memcpy(void* dst, void* src, size_t size)
+static inline __device__ void* memcpy(void* dst, const void* src, size_t size)
 {
   return __hip_hc_memcpy(dst, src, size);
 }
 
-static inline __device__ void* memset(void* ptr, uint8_t val, size_t size)
+static inline __device__ void* memset(void* ptr, int val, size_t size)
 {
-  return __hip_hc_memset(ptr, val, size);
+  uint8_t val8 = static_cast <uint8_t> (val);
+  return __hip_hc_memset(ptr, val8, size);
 }
 
 

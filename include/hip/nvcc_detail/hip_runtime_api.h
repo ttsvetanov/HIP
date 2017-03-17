@@ -306,13 +306,13 @@ inline static hipError_t hipMemcpyHtoDAsync(hipDeviceptr_t dst,
 inline static hipError_t hipMemcpyDtoHAsync(void* dst,
                   hipDeviceptr_t src, size_t size, hipStream_t stream)
 {
-    return hipCUResultTohipError(cuMemcpyDtoH(dst, src, size));
+    return hipCUResultTohipError(cuMemcpyDtoHAsync(dst, src, size, stream));
 }
 
 inline static hipError_t hipMemcpyDtoDAsync(hipDeviceptr_t dst,
             hipDeviceptr_t src, size_t size, hipStream_t stream)
 {
-    return hipCUResultTohipError(cuMemcpyDtoD(dst, src, size));
+    return hipCUResultTohipError(cuMemcpyDtoDAsync(dst, src, size, stream));
 }
 
 inline static hipError_t hipMemcpy(void* dst, const void* src, size_t sizeBytes, hipMemcpyKind copyKind) {
@@ -395,6 +395,11 @@ inline static hipError_t hipMemset(void* devPtr,int value, size_t count) {
 
 inline static hipError_t hipMemsetAsync(void* devPtr,int value, size_t count, hipStream_t stream = 0) {
     return hipCUDAErrorTohipError(cudaMemsetAsync(devPtr, value, count, stream));
+}
+
+inline static hipError_t hipMemsetD8(hipDeviceptr_t dest, unsigned char  value, size_t sizeBytes )
+{
+    return hipCUResultTohipError(cuMemsetD8(dest, value, sizeBytes));
 }
 
 inline static hipError_t hipGetDeviceProperties(hipDeviceProp_t *p_prop, int device)

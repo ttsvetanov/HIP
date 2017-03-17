@@ -21,42 +21,32 @@ THE SOFTWARE.
 */
 
 /* HIT_START
- * BUILD: %t %s ../test_common.cpp EXCLUDE_HIP_PLATFORM hcc
- * RUN: %t EXCLUDE_HIP_PLATFORM nvcc
+ * BUILD: %t %s ../../test_common.cpp EXCLUDE_HIP_PLATFORM nvcc
+ * RUN: %t
  * HIT_END
  */
 
- #include "hip/hip_runtime.h"
- #include "test_common.h"
+#include"test_common.h"
 
-#define LEN 8*1024
-#define SIZE LEN*4
+struct {
+  float a;
+  int b;
+  void *c;
+} Struct ;
 
-__global__ void vectorAdd(hipLaunchParm lp, float *Ad, float *Bd) {
-  HIP_DYNAMIC_SHARED(float, sBd);
-  int tx = hipThreadIdx_x;
-  for(int i=0;i<LEN/64;i++) {
-    sBd[tx + i * 64] = Ad[tx + i * 64] + 1.0f;
-    Bd[tx + i * 64] = sBd[tx + i * 64];
-  }
-}
-
-int main() {
-  float *A, *B, *Ad, *Bd;
-  A = new float[LEN];
-  B = new float[LEN];
-  for(int i=0;i<LEN;i++) {
-    A[i] = 1.0f;
-    B[i] = 1.0f;
-  }
-  hipMalloc(&Ad, SIZE);
-  hipMalloc(&Bd, SIZE);
-  hipMemcpy(Ad, A, SIZE, hipMemcpyHostToDevice);
-  hipMemcpy(Bd, B, SIZE, hipMemcpyHostToDevice);
-  hipLaunchKernel(vectorAdd, dim3(1,1,1), dim3(64,1,1), SIZE, 0, Ad, Bd);
-  hipMemcpy(B, Bd, SIZE, hipMemcpyDeviceToHost);
-  for(int i=0;i<LEN;i++) {
-    assert(B[i] > 1.0f && B[i] < 3.0f);
-  }
+int main(){
+  int *iPtr;
+  float *fPtr;
+  struct Struct *sPtr;
+  size_t sSetSize = 1024, sGetSize;
+  hipMalloc(&iPtr, sSetSize);
+  hipMalloc(&fPtr, sSetSize);
+  hipMalloc(&sPtr, sSetSize);
+  hipMemPtrGetInfo(iPtr, &sGetSize);
+  assert(sGetSize == sSetSize);
+  hipMemPtrGetInfo(fPtr, &sGetSize);
+  assert(sGetSize == sSetSize);
+  hipMemPtrGetInfo(sPtr, &sGetSize);
+  assert(sGetSize == sSetSize);
   passed();
 }
