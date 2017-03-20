@@ -28,6 +28,13 @@ THE SOFTWARE.
 #ifndef HOST_DEFINES_H
 #define HOST_DEFINES_H
 
+#define USE_PROMOTE_FREE_HCC 1
+
+// Add guard to Generic Grid Launch method
+#ifndef GENERIC_GRID_LAUNCH
+#define GENERIC_GRID_LAUNCH 0
+#endif
+
 #ifdef __HCC__
 /**
  * Function and kernel markers
@@ -35,7 +42,14 @@ THE SOFTWARE.
 #define __host__     __attribute__((cpu))
 #define __device__   __attribute__((hc))
 
+//#warning "HOST DEFINE header included"
+#if GENERIC_GRID_LAUNCH == 0
+//#warning "original global define reached"
 #define __global__  __attribute__((hc_grid_launch)) __attribute__((used))
+#else 
+//#warning "GGL global define reached"
+#define __global__ [[hc]] __attribute__((weak))
+#endif //GENERIC_GRID_LAUNCH
 
 #define __noinline__      __attribute__((noinline))
 #define __forceinline__   __attribute__((always_inline))
@@ -47,7 +61,11 @@ THE SOFTWARE.
  */
 // _restrict is supported by the compiler
 #define __shared__     tile_static
+#if USE_PROMOTE_FREE_HCC==1
 #define __constant__   __attribute__((hc))
+#else
+#define __constant__   ADDRESS_SPACE_1
+#endif
 
 #else
 // Non-HCC compiler
