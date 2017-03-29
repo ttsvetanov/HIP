@@ -40,6 +40,7 @@ __device__ ADDRESS_SPACE_1 int globalOut[NUM];
 #ifdef __HIP_PLATFORM_NVCC__
 __device__ int globalIn[NUM];
 __device__ int globalOut[NUM];
+#endif
 
 __global__ void Assign(hipLaunchParm lp, int* Out)
 {
