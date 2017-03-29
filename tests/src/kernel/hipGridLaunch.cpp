@@ -74,7 +74,7 @@ int test_gl2(size_t N) {
     HIPCHECK ( hipMemcpy(A_d, A_h, Nbytes, hipMemcpyHostToDevice));
     HIPCHECK ( hipMemcpy(B_d, B_h, Nbytes, hipMemcpyHostToDevice));
 
-    hipLaunchKernel(vectorADD2, dim3(blocks), dim3(threadsPerBlock), 0, 0, A_d, B_d, C_d, N);
+    hipLaunchKernel(HIP_KERNEL_NAME(vectorADD2<int>), dim3(blocks), dim3(threadsPerBlock), 0, 0, A_d, B_d, C_d, N);
 
     HIPCHECK ( hipMemcpy(C_h, C_d, Nbytes, hipMemcpyDeviceToHost));
 

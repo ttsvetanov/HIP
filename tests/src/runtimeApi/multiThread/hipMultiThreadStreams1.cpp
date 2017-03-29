@@ -66,7 +66,7 @@ void simpleVectorCopy(size_t numElements, int iters, hipStream_t stream)
 		MemTraits<C>::Copy(A_d, A_h, Nbytes, hipMemcpyHostToDevice, stream);
 		MemTraits<C>::Copy(B_d, B_h, Nbytes, hipMemcpyHostToDevice, stream);
 
-		hipLaunchKernel(HipTest::vectorADD, dim3(blocks), dim3(threadsPerBlock), 0, 0, A_d, B_d, C_d, numElements);
+		hipLaunchKernel(HIP_KERNEL_NAME(HipTest::vectorADD<T>), dim3(blocks), dim3(threadsPerBlock), 0, 0, A_d, B_d, C_d, numElements);
 
 		MemTraits<C>::Copy(C_h, C_d, Nbytes, hipMemcpyDeviceToHost, stream);
 

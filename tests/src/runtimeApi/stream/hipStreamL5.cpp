@@ -76,7 +76,7 @@ void test12345(){
 
 	H2HAsync(Bh, Ah, size, stream);
 	H2DAsync(Ad, Bh, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Ad);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Ad);
 	D2DAsync(Bd, Ad, size, stream);
 	D2HAsync(Ch, Bd, size, stream);
 	HIPCHECK(hipDeviceSynchronize());
@@ -111,7 +111,7 @@ void test13452(){
 	H2D(Ad, Dh, size);
 
 	H2HAsync(Bh, Ah, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Ad);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Ad);
 	D2DAsync(Bd, Ad, size, stream);
 	D2HAsync(Ch, Bd, size, stream);
 	H2DAsync(Cd, Ch, size, stream);
@@ -153,7 +153,7 @@ void test14523(){
 	D2DAsync(Bd, Ad, size, stream);
 	D2HAsync(Ch, Bd, size, stream);
 	H2DAsync(Cd, Ch, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Cd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Cd);
 
 	HIPCHECK(hipDeviceSynchronize());
 
@@ -191,7 +191,7 @@ void test15234(){
 	H2HAsync(Bh, Ah, size, stream);
 	D2HAsync(Ch, Ad, size, stream);
 	H2DAsync(Bd, Ch, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Bd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Bd);
 	D2DAsync(Cd, Bd, size, stream);
 
 	D2H(Eh, Cd, size);
@@ -219,7 +219,7 @@ void test23451(){
 	setArray(Ah, N, T(1));
 
 	H2DAsync(Ad, Ah, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Ad);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Ad);
 	D2DAsync(Bd, Ad, size, stream);
 	D2HAsync(Bh, Bd, size, stream);
 	H2HAsync(Ch, Bh, size, stream);
@@ -256,7 +256,7 @@ void test24513(){
 	D2DAsync(Bd, Ad, size, stream);
 	D2HAsync(Bh, Bd, size, stream);
 	H2HAsync(Ch, Bh, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Cd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Cd);
 	HIPCHECK(hipDeviceSynchronize());
 
 	D2H(Eh, Cd, size);
@@ -293,7 +293,7 @@ void test25134(){
 	H2DAsync(Ad, Ah, size, stream);
 	D2HAsync(Bh, Ad, size, stream);
 	H2HAsync(Ch, Bh, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Bd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Bd);
 	D2DAsync(Cd, Bd, size, stream);
 
 	D2H(Eh, Cd, size);
@@ -326,7 +326,7 @@ void test21345(){
 
 	H2DAsync(Ad, Ah, size, stream);
 	H2HAsync(Ch, Bh, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Ad);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Ad);
 	D2DAsync(Bd, Ad, size, stream);
 	D2HAsync(Dh, Bd, size, stream);
 
@@ -360,7 +360,7 @@ void test34512(){
 
 	H2D(Ad, Ah, size);
 
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Ad);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Ad);
 	D2DAsync(Bd, Ad, size, stream);
 	D2HAsync(Bh, Bd, size, stream);
 	H2HAsync(Ch, Bh, size, stream);
@@ -395,7 +395,7 @@ void test35124(){
 
 	H2D(Ad, Dh, size);
 
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Ad);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Ad);
 	D2HAsync(Ah, Ad, size, stream);
 	H2HAsync(Bh, Ah, size, stream);
 	H2DAsync(Bd, Bh, size, stream);
@@ -432,7 +432,7 @@ void test31245(){
 
 	H2D(Ad, Dh, size);
 
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Ad);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Ad);
 	H2HAsync(Bh, Ah, size, stream);
 	H2DAsync(Bd, Bh, size, stream);
 	D2DAsync(Cd, Bd, size, stream);
@@ -471,7 +471,7 @@ void test32451(){
 	setArray(Eh, N, T(2));
 
 	H2D(Ad, Eh, size);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Ad);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Ad);
 	H2DAsync(Bd, Ah, size, stream);
 	D2DAsync(Cd, Bd, size, stream);
 	D2HAsync(Bh, Cd, size, stream);
@@ -510,7 +510,7 @@ void test45123(){
 	D2HAsync(Ah, Bd, size, stream);
 	H2HAsync(Bh, Ah, size, stream);
 	H2DAsync(Cd, Bh, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Cd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Cd);
 	D2H(Ch, Cd, size);
 	HIPCHECK(hipDeviceSynchronize());
 
@@ -542,7 +542,7 @@ void test41235(){
 	D2DAsync(Bd, Ad, size, stream);
 	D2HAsync(Ah, Bd, size, stream);
 	H2DAsync(Cd, Ah, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Cd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Cd);
 	D2HAsync(Bh, Cd, size, stream);
 
 	HIPCHECK(hipDeviceSynchronize());
@@ -577,7 +577,7 @@ void test42351(){
 
 	D2DAsync(Bd, Ad, size, stream);
 	H2DAsync(Cd, Ah, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Cd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Cd);
 	D2HAsync(Bh, Cd, size, stream);
 	H2HAsync(Ch, Bh, size, stream);
 
@@ -612,7 +612,7 @@ void test43512(){
 	H2D(Ad, Dh, size);
 
 	D2DAsync(Bd, Ad, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Bd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Bd);
 	D2HAsync(Ah, Bd, size, stream);
 	H2HAsync(Bh, Ah, size, stream);
 	H2DAsync(Cd, Bh, size, stream);
@@ -648,7 +648,7 @@ void test51234(){
 	D2HAsync(Ah, Ad, size, stream);
 	H2HAsync(Bh, Ah, size, stream);
 	H2DAsync(Bd, Bh, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Bd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Bd);
 	D2DAsync(Cd, Bd, size, stream);
 
 	D2H(Ch, Cd, size);
@@ -684,7 +684,7 @@ void test52341(){
 
 	D2HAsync(Ah, Ad, size, stream);
 	H2DAsync(Bd, Ah, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Bd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Bd);
 	D2DAsync(Cd, Bd, size, stream);
 	H2HAsync(Ch, Bh, size, stream);
 
@@ -726,7 +726,7 @@ void test53412(){
 	H2D(Bd, Eh, size);
 
 	D2HAsync(Ah, Ad, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Bd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Bd);
 	D2DAsync(Cd, Bd, size, stream);
 	H2HAsync(Ch, Bh, size, stream);
 	H2DAsync(Dd, Ch, size, stream);
@@ -773,7 +773,7 @@ void test54123(){
 	D2DAsync(Cd, Bd, size, stream);
 	H2HAsync(Ch, Bh, size, stream);
 	H2DAsync(Dd, Ch, size, stream);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/512), dim3(512), 0, stream, Dd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<T>), dim3(N/512), dim3(512), 0, stream, Dd);
 
 	D2H(Fh, Cd, size);
 	D2H(Gh, Dd, size);

@@ -97,7 +97,7 @@ void memcpytest2(size_t numElements, bool usePinnedHost, bool useHostToHost, boo
         HIPCHECK ( hipMemcpy(B_d, B_h, sizeElements, useMemkindDefault ? hipMemcpyDefault : hipMemcpyHostToDevice));
     }
 
-    hipLaunchKernel(HipTest::vectorADD, dim3(blocks), dim3(threadsPerBlock), 0, 0, A_d, B_d, C_d, numElements);
+    hipLaunchKernel(HIP_KERNEL_NAME(HipTest::vectorADD<T>), dim3(blocks), dim3(threadsPerBlock), 0, 0, A_d, B_d, C_d, numElements);
 
     if (useDeviceToDevice) {
         HIPCHECK ( hipMalloc(&C_dd, sizeElements) );

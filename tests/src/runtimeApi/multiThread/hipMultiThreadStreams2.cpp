@@ -54,7 +54,7 @@ void run1(size_t size, hipStream_t stream){
 
 	HIPCHECK(hipMemcpyAsync(Bh, Ah, size, hipMemcpyHostToHost, stream));
 	HIPCHECK(hipMemcpyAsync(Cd, Bh, size, hipMemcpyHostToDevice, stream));
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/500), dim3(500), 0, stream, Cd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<float>), dim3(N/500), dim3(500), 0, stream, Cd);
 	HIPCHECK(hipMemcpyAsync(Dd, Cd, size, hipMemcpyDeviceToDevice, stream));
 	HIPCHECK(hipMemcpyAsync(Eh, Dd, size, hipMemcpyDeviceToHost, stream));
 	HIPCHECK(hipDeviceSynchronize());
@@ -81,8 +81,8 @@ void run(size_t size, hipStream_t stream1, hipStream_t stream2){
 	HIPCHECK(hipMemcpyAsync(Bhh, Ahh, size, hipMemcpyHostToHost, stream2));
 	HIPCHECK(hipMemcpyAsync(Cd, Bh, size, hipMemcpyHostToDevice, stream1));
 	HIPCHECK(hipMemcpyAsync(Cdd, Bhh, size, hipMemcpyHostToDevice, stream2));
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/500), dim3(500), 0, stream1, Cd);
-	hipLaunchKernel(HIP_KERNEL_NAME(Inc), dim3(N/500), dim3(500), 0, stream2, Cdd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<float>), dim3(N/500), dim3(500), 0, stream1, Cd);
+	hipLaunchKernel(HIP_KERNEL_NAME(Inc<float>), dim3(N/500), dim3(500), 0, stream2, Cdd);
 	HIPCHECK(hipMemcpyAsync(Dd, Cd, size, hipMemcpyDeviceToDevice, stream1));
 	HIPCHECK(hipMemcpyAsync(Ddd, Cdd, size, hipMemcpyDeviceToDevice, stream2));
 	HIPCHECK(hipMemcpyAsync(Eh, Dd, size, hipMemcpyDeviceToHost, stream1));

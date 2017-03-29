@@ -72,7 +72,7 @@ void Streamer<T>::runAsync()
 {
     printf ("testing: %s  numElements=%zu size=%6.2fMB\n", __func__, _numElements, _numElements * sizeof(T) / 1024.0/1024.0);
     unsigned blocks = HipTest::setNumBlocks(blocksPerCU, threadsPerBlock, _numElements);
-    hipLaunchKernel(HipTest::vectorADD, dim3(blocks), dim3(threadsPerBlock), 0, _stream, _A_d, _B_d, _C_d, _numElements);
+    hipLaunchKernel(HIP_KERNEL_NAME(HipTest::vectorADD<T>), dim3(blocks), dim3(threadsPerBlock), 0, _stream, _A_d, _B_d, _C_d, _numElements);
 
     // Test case where hipStreamWaitEvent waits on same event we just placed into the queue.
     HIPCHECK(hipEventRecord(_event, _stream));

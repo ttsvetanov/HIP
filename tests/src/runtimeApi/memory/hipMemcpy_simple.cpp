@@ -63,7 +63,7 @@ void simpleTest1()
     HIPCHECK ( memcopy(A_d, A_h, Nbytes, hipMemcpyHostToDevice));
     HIPCHECK ( memcopy(B_d, B_h, Nbytes, hipMemcpyHostToDevice));
 
-    hipLaunchKernel(HipTest::vectorADD, dim3(blocks), dim3(threadsPerBlock), 0, 0, A_d, B_d, C_d, N);
+    hipLaunchKernel(HIP_KERNEL_NAME(HipTest::vectorADD<int>), dim3(blocks), dim3(threadsPerBlock), 0, 0, A_d, B_d, C_d, N);
 
     HIPCHECK ( memcopy(C_h, C_d, Nbytes, hipMemcpyDeviceToHost));
 
