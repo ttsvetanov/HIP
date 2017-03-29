@@ -837,7 +837,7 @@ __device__ float __hip_ynf(int n, float x)
 
 
 
-const int warpSize = 64;
+__device__ const int warpSize = 64;
 
 __device__ long long int clock64() { return (long long int)hc::__cycle_u64(); };
 __device__ clock_t clock() { return (clock_t)hc::__cycle_u64(); };
