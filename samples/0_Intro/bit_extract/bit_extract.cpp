@@ -37,8 +37,8 @@ THE SOFTWARE.
     }\
 }
 
-void __global__
-bit_extract_kernel(hipLaunchParm lp, uint32_t *C_d, const uint32_t *A_d, size_t N)
+__global__
+void bit_extract_kernel(hipLaunchParm lp, uint32_t *C_d, const uint32_t *A_d, size_t N)
 {
     size_t offset = (hipBlockIdx_x * hipBlockDim_x + hipThreadIdx_x);
     size_t stride = hipBlockDim_x * hipGridDim_x ;
