@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015-2016 Advanced Micro Devices, Inc. All rights reserved.
+Copyright (c) 2015 - present Advanced Micro Devices, Inc. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -25,8 +25,8 @@ THE SOFTWARE.
  *  @brief TODO-doc
  */
 
-#ifndef HOST_DEFINES_H
-#define HOST_DEFINES_H
+#ifndef HIP_INCLUDE_HIP_HCC_DETAIL_HOST_DEFINES_H
+#define HIP_INCLUDE_HIP_HCC_DETAIL_HOST_DEFINES_H
 
 #define USE_PROMOTE_FREE_HCC 1
 
@@ -46,7 +46,7 @@ THE SOFTWARE.
 #if GENERIC_GRID_LAUNCH == 0
 //#warning "original global define reached"
 #define __global__  __attribute__((hc_grid_launch)) __attribute__((used))
-#else 
+#else
 //#warning "GGL global define reached"
 #define __global__ [[hc]] __attribute__((weak))
 #endif //GENERIC_GRID_LAUNCH

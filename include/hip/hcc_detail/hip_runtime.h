@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015-2016 Advanced Micro Devices, Inc. All rights reserved.
+Copyright (c) 2015 - present Advanced Micro Devices, Inc. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,8 +26,8 @@ THE SOFTWARE.
  */
 
 //#pragma once
-#ifndef HIP_HCC_DETAIL_RUNTIME_H
-#define HIP_HCC_DETAIL_RUNTIME_H
+#ifndef HIP_INCLUDE_HIP_HCC_DETAIL_HIP_RUNTIME_H
+#define HIP_INCLUDE_HIP_HCC_DETAIL_HIP_RUNTIME_H
 
 //---
 // Top part of file can be compiled with any compiler
@@ -62,11 +62,15 @@ THE SOFTWARE.
 #include <grid_launch.h>
 //TODO-HCC-GL - change this to typedef.
 //typedef grid_launch_parm hipLaunchParm ;
-struct EmptyLaunchParm{};
+
 #if GENERIC_GRID_LAUNCH == 0
     #define hipLaunchParm grid_launch_parm
 #else
-    #define hipLaunchParm EmptyLaunchParm
+namespace hip_impl
+{
+    struct Empty_launch_parm {};
+}
+#define hipLaunchParm hip_impl::Empty_launch_parm
 #endif //GENERIC_GRID_LAUNCH
 
 #if defined (GRID_LAUNCH_VERSION) and (GRID_LAUNCH_VERSION >= 20) || GENERIC_GRID_LAUNCH == 1
@@ -77,7 +81,7 @@ struct EmptyLaunchParm{};
 #endif //HCC
 
 #if GENERIC_GRID_LAUNCH==1 && defined __HCC__
-#include "grid_launch_v2.hpp"
+#include "grid_launch_GGL.hpp"
 #endif//GENERIC_GRID_LAUNCH
 
 extern int HIP_TRACE_API;
@@ -155,8 +159,7 @@ extern int HIP_TRACE_API;
 
 // TODO - hipify-clang - change to use the function call.
 //#define warpSize hc::__wavesize()
-extern const int warpSize;
-
+static constexpr int warpSize = 64;
 
 #define clock_t long long int
 __device__ long long int clock64();
@@ -416,7 +419,7 @@ static inline __device__ void* memset(void* ptr, int val, size_t size)
 
 #define __syncthreads() hc_barrier(CLK_LOCAL_MEM_FENCE)
 
-#define HIP_KERNEL_NAME(...) __VA_ARGS__
+#define HIP_KERNEL_NAME(...)  (__VA_ARGS__)
 #define HIP_SYMBOL(X) #X
 
 #if defined __HCC_CPP__
