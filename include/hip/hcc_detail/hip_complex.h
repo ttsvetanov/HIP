@@ -223,7 +223,8 @@ __device__ __host__ static inline hipFloatComplex hipCdivf(hipFloatComplex p, hi
 }
 
 __device__ __host__ static inline float hipCabsf(hipFloatComplex z){
-    return sqrtf(hipCsqabsf(z));
+    //return sqrtf(hipCsqabsf(z));
+#warning "hipCabsf needs to be fixed"
 }
 
 
@@ -275,7 +276,8 @@ __device__ __host__ static inline hipDoubleComplex hipCdiv(hipDoubleComplex p, h
 }
 
 __device__ __host__ static inline double hipCabs(hipDoubleComplex z){
-    return sqrtf(hipCsqabs(z));
+    //return sqrtf(hipCsqabs(z));
+#warning "hipCabs needs to be fixed"
 }
 
 typedef hipFloatComplex hipComplex;

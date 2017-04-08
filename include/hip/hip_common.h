@@ -28,6 +28,9 @@ THE SOFTWARE.
 // Other compiler (GCC,ICC,etc) need to set one of these macros explicitly
 #if defined(__HCC__)
 #define __HIP_PLATFORM_HCC__
+#warning "__HCC__ was defined"
+#else
+#warning "__HCC__ was not defined"
 #endif //__HCC__
 
 // Auto enable __HIP_PLATFORM_NVCC__ if compiling with NVCC
